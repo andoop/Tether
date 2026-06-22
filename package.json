@@ -1,7 +1,24 @@
 {
   "name": "tether",
+  "version": "0.1.0",
+  "description": "Agent-agnostic phone companion for your coding agent: pair your phone, then chat, browse repo files (read-only), and view git diff over your LAN.",
   "private": true,
   "type": "module",
+  "license": "MIT",
+  "author": "andoop",
+  "homepage": "https://github.com/andoop/Tether#readme",
+  "repository": { "type": "git", "url": "git+https://github.com/andoop/Tether.git" },
+  "bugs": { "url": "https://github.com/andoop/Tether/issues" },
+  "keywords": [
+    "cli",
+    "mobile",
+    "remote",
+    "coding-agent",
+    "git-diff",
+    "pairing",
+    "fastify"
+  ],
+  "engines": { "node": ">=20" },
   "bin": { "tether": "./dist/index.js" },
   "scripts": {
     "dev": "tsx src/index.ts",

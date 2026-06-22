@@ -1,0 +1,33 @@
+name: Bug report
+description: Report a problem with Tether
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what actually happened?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. npm start
+        2. pair phone ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Tether commit / version
+    validations:
+      required: false
+  - type: input
+    id: env
+    attributes:
+      label: OS + Node version
+    validations:
+      required: false
