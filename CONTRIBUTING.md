@@ -1,5 +1,7 @@
 # Contributing to Tether
 
+**English** | [中文](CONTRIBUTING.zh-CN.md)
+
 Thanks for your interest! Tether is a small, focused project — contributions that
 keep it surgical and well-tested are very welcome.
 

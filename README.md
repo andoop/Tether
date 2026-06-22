@@ -3,6 +3,8 @@
 [![CI](https://github.com/andoop/Tether/actions/workflows/ci.yml/badge.svg)](https://github.com/andoop/Tether/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+**English** | [中文](README.zh-CN.md)
+
 Tether is a tiny, agent-agnostic **phone companion for your coding agent**. Start it
 in any repo, pair your phone, and from anywhere on your LAN you can:
 
@@ -76,4 +78,4 @@ npm run build        # emits dist/
 
 ## License
 
-TBD.
+[MIT](LICENSE) © andoop

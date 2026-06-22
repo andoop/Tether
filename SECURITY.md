@@ -1,5 +1,7 @@
 # Security Policy
 
+**English** | [中文](SECURITY.zh-CN.md)
+
 Tether exposes a small HTTP server on your LAN so a paired phone can chat with
 your coding agent and **read** repository files and git diffs. Treat it like any
 tool that opens a local network port.
