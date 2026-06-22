@@ -57,7 +57,7 @@ async function start(): Promise<void> {
   const payload = buildPairPayload(url, qrToken);
   const qr = await renderQr(payload);
 
-  process.stdout.write("\nmobile-bridge is running.\n");
+  process.stdout.write("\nTether is running.\n");
   process.stdout.write(`  URL:          ${url}\n`);
   process.stdout.write(`  Pairing code: ${code}  (enter on your phone; expires in 10 min)\n`);
   process.stdout.write("  Scan to pair:\n");
@@ -76,8 +76,8 @@ async function start(): Promise<void> {
 
 function usage(): void {
   process.stdout.write(
-    "mobile-bridge — phone remote companion (chat + read-only file browse + git diff)\n\n" +
-      "Usage:\n  mobile-bridge start    Start the service and print pairing code + URL + QR\n"
+    "tether — phone remote companion (chat + read-only file browse + git diff)\n\n" +
+      "Usage:\n  tether start    Start the service and print pairing code + URL + QR\n"
   );
 }
 

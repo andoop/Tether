@@ -1,8 +1,8 @@
 {
-  "name": "mobile-bridge",
+  "name": "tether",
   "private": true,
   "type": "module",
-  "bin": { "mobile-bridge": "./dist/index.js" },
+  "bin": { "tether": "./dist/index.js" },
   "scripts": {
     "dev": "tsx src/index.ts",
     "build": "tsc -p tsconfig.json",
