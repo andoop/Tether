@@ -17,6 +17,14 @@ Tether 是一个轻量、与 agent 无关的**手机伴侣**，服务于你的 c
 > Tether 使用 [Sandtable](https://github.com/andoop/sandtable) 沙盘推演驱动开发流程构建；
 > Sandtable 只是方法论，**不是** Tether 的运行时依赖。
 
+## 谁来用（三种角色）
+
+1. **开发者**：在仓库里跑 `tether start`。
+2. **agent（任意 coding agent）**：通过 `tether` CLI 驱动“手机↔agent”闭环——见
+   [agent/SKILL.md](agent/SKILL.md)，无需手搓 HTTP。
+3. **用手机的人**：在手机浏览器打开终端打印的 URL（或扫二维码），输入 6 位配对码，
+   即可获得一个**零安装网页 App**：对话、文件浏览、git diff。
+
 ## 快速开始
 
 ```bash
@@ -25,10 +33,22 @@ npm start            # 或：npx tsx src/index.ts start
 ```
 
 它会打印一个**局域网 URL**、一个**6 位配对码**和一个**可扫描的二维码**。
-在手机上输入 URL + 配对码（或扫码）即可配对。服务从 `8770` 起选用空闲端口。
+在手机浏览器打开该 URL（或扫码打开），再输入 6 位配对码即可配对——**无需安装 App**。
+服务从 `8770` 起选用空闲端口。
+
+用 agent 驱动它（见 [agent/SKILL.md](agent/SKILL.md)）：
 
 ```bash
-npm test             # 36 个测试
+tether start                              # 打印 URL + 配对码 + 二维码
+tether sessions                           # 列出会话 id
+tether wait --timeout 200                 # 等待器：阻塞直到下一条手机消息
+tether say --session <id> --text "done"   # 回复手机
+tether ack --ids <messageId>              # 确认一条已处理消息
+tether stop                               # 停止并吊销 device token
+```
+
+```bash
+npm test             # 43 个测试
 npm run typecheck
 npm run build        # 产出 dist/
 ```
@@ -61,11 +81,11 @@ npm run build        # 产出 dist/
 
 ## 现状与已知限制（v0）
 
-- 手机**端 App UI 不在本仓库**——Tether 目前交付**服务端 + 协议**，移动客户端单独提供。
-- 运行时目录当前写在所服务仓库的 `mobile-bridge/.runtime` 下（命名遗留），后续会重命名。
+- 自带**零安装网页客户端**（在 `/` 提供）。原生手机 App 是可选的后续轨，基于同一套 HTTP API。
 - CLI `--port` 参数尚未接线（从 `8770` 起自动扫描端口）。
 - 可选的 MCP 入口与 SSE 的自动化测试尚未实现。
-- QR device token 在 `/stop` 之前不会过期。
+- QR / device token 在 `/stop` 之前不会过期。
+- 运行时状态写在所服务仓库的 `.tether/` 下（已被 git 忽略）。
 
 ## 许可证
 

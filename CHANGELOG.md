@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Zero-install **mobile web client** (served at `/`): pairing, chat (SSE), file
+  browser, and git status/diff.
+- Agent-facing CLI: `tether wait | say | ack | stop | sessions`, plus `server.json`
+  discovery so any agent can drive the mailbox loop without curl.
+- `agent/SKILL.md` and `agent/prompts/tether-sync.md` for wiring Kiro/Cursor/Claude/Codex.
+
+### Changed
+- QR code now encodes the web URL (scan opens the web client; 6-digit code still required).
+- Runtime state moved to `.tether/` (was `mobile-bridge/.runtime`).
+
 ## [0.1.0] - 2026-06-22
 
 ### Added
