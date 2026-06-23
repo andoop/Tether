@@ -2,12 +2,11 @@
 import os from "node:os";
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { nanoid } from "nanoid";
 import { resolvePaths, type RuntimePaths } from "./paths.js";
 import { PairingRegistry } from "./pairing.js";
 import { DeviceStore } from "./devices.js";
 import { createServer } from "./server.js";
-import { buildPairPayload, renderQr } from "./qr.js";
+import { renderQr } from "./qr.js";
 import { listSessions } from "./sessions.js";
 
 const DEFAULT_PORT = 8770;
@@ -92,21 +91,21 @@ async function start(): Promise<void> {
   // Persist server info so other CLI invocations (wait/say/ack/stop) find us.
   await writeServerInfo(paths, { url, port, pid: process.pid });
 
-  // PIN + QR durable token are minted IN-PROCESS and only printed to the terminal.
+  // PIN is minted IN-PROCESS and only printed to the terminal. The QR encodes the
+  // plain web URL so scanning opens the phone web client; the 6-digit code is still
+  // required to pair (no token travels in the QR).
   const { code } = pairing.createPin();
-  const qrToken = `dev_${nanoid(40)}`;
-  await devices.add(qrToken);
-  const payload = buildPairPayload(url, qrToken);
-  const qr = await renderQr(payload);
+  const qr = await renderQr(url);
 
   process.stdout.write("\nTether is running.\n");
   process.stdout.write(`  URL:          ${url}\n`);
-  process.stdout.write(`  Pairing code: ${code}  (enter on your phone; expires in 10 min)\n`);
-  process.stdout.write("  Scan to pair:\n");
+  process.stdout.write(`  Open on phone: ${url}  (or scan below), then enter the code\n`);
+  process.stdout.write(`  Pairing code: ${code}  (expires in 10 min)\n`);
+  process.stdout.write("  Scan to open the web client:\n");
   process.stdout.write(`${qr}\n`);
   process.stdout.write(
     "  SECURITY: this binds to 0.0.0.0 (LAN). Only run on trusted networks.\n" +
-      "            Anyone with the QR token or pairing code can browse files (read-only) and git diff.\n\n"
+      "            Anyone with the pairing code can browse files (read-only) and git diff.\n\n"
   );
 
   const shutdown = () => {

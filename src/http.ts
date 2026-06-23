@@ -1,4 +1,7 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import fastifyStatic from "@fastify/static";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 import type { ServerContext } from "./server.js";
 import { HttpError } from "./errors.js";
 import { listDir, readContent } from "./files.js";
@@ -56,6 +59,10 @@ export async function registerRoutes(app: FastifyInstance, ctx: ServerContext): 
   }
 
   // --- open ---
+  // Serve the bundled mobile web client (zero-install). Files live at <pkg>/web.
+  const webRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../web");
+  await app.register(fastifyStatic, { root: webRoot, prefix: "/", index: ["index.html"] });
+
   app.get("/health", async () => ({ ok: true }));
 
   // --- pairing: the ONLY network path to obtain a token ---

@@ -35,6 +35,15 @@ describe("HTTP routes (TC16/TC14/TC3)", () => {
     expect(res.json()).toEqual({ ok: true });
   });
 
+  it("serves the bundled web client at / and /app.js", async () => {
+    const index = await app.inject({ method: "GET", url: "/" });
+    expect(index.statusCode).toBe(200);
+    expect(index.headers["content-type"]).toContain("text/html");
+    expect(index.body).toContain("Tether");
+    const js = await app.inject({ method: "GET", url: "/app.js" });
+    expect(js.statusCode).toBe(200);
+  });
+
   it("GET /sessions without token -> 401 (TC16)", async () => {
     const res = await app.inject({ method: "GET", url: "/sessions" });
     expect(res.statusCode).toBe(401);

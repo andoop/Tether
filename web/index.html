@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Tether</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- Pairing -->
+  <section id="pair" class="screen">
+    <h1>Tether</h1>
+    <p class="muted">Enter the 6-digit code shown in your terminal.</p>
+    <input id="code" inputmode="numeric" pattern="\d*" maxlength="6" placeholder="123456" />
+    <button id="pairBtn">Pair</button>
+    <p id="pairErr" class="err"></p>
+  </section>
+
+  <!-- App -->
+  <section id="app" class="screen hidden">
+    <header>
+      <strong>Tether</strong>
+      <nav>
+        <button data-tab="chat" class="tab active">Chat</button>
+        <button data-tab="files" class="tab">Files</button>
+        <button data-tab="git" class="tab">Git</button>
+      </nav>
+      <button id="logout" title="Forget pairing">⎋</button>
+    </header>
+
+    <div id="tab-chat" class="tabpane">
+      <div id="messages" class="messages"></div>
+      <form id="chatForm" class="chatbar">
+        <input id="chatInput" placeholder="Message the agent…" autocomplete="off" />
+        <button>Send</button>
+      </form>
+    </div>
+
+    <div id="tab-files" class="tabpane hidden">
+      <div id="crumbs" class="crumbs"></div>
+      <ul id="fileList" class="list"></ul>
+      <pre id="fileView" class="fileview hidden"></pre>
+    </div>
+
+    <div id="tab-git" class="tabpane hidden">
+      <div class="gitbar">
+        <button id="gitStatusBtn">status</button>
+        <button id="gitDiffBtn">diff</button>
+      </div>
+      <pre id="gitView" class="fileview"></pre>
+    </div>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>
