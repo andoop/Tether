@@ -81,13 +81,14 @@ describe("isSecret (TC7)", () => {
 });
 
 describe("isExcluded (TC17)", () => {
-  it("excludes .git, node_modules and mobile-bridge/.runtime", () => {
+  it("excludes .git, node_modules and .tether in all modes", () => {
     expect(isExcluded(".git")).toBe(true);
     expect(isExcluded(".git/config")).toBe(true);
     expect(isExcluded("node_modules")).toBe(true);
     expect(isExcluded("node_modules/foo/index.js")).toBe(true);
-    expect(isExcluded("mobile-bridge/.runtime")).toBe(true);
-    expect(isExcluded("mobile-bridge/.runtime/devices.json")).toBe(true);
+    expect(isExcluded(".tether")).toBe(true);
+    expect(isExcluded(".tether/devices.json")).toBe(true);
+    expect(isExcluded(".tether/mailbox/inbox/x.json")).toBe(true);
   });
 
   it("does not exclude ordinary files", () => {

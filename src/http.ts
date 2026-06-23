@@ -3,7 +3,7 @@ import type { ServerContext } from "./server.js";
 import { HttpError } from "./errors.js";
 import { listDir, readContent } from "./files.js";
 import { gitStatus, gitDiff } from "./git.js";
-import { createMessage, enqueueInbox, readInbox, markProcessed } from "./mailbox.js";
+import { createMessage, enqueueInbox, readInbox, markProcessed, messagesAfter } from "./mailbox.js";
 import { appendMessage, listMessages } from "./conversations.js";
 import { ensureDefaultSession, listSessions, getSession, touchSession } from "./sessions.js";
 import type { MessageKind } from "./types.js";
@@ -123,9 +123,7 @@ export async function registerRoutes(app: FastifyInstance, ctx: ServerContext): 
     if (!requireLoopback(req, reply)) return;
     const after = req.query?.after ?? "";
     const entries = await readInbox(paths);
-    const messages = entries
-      .map((e) => e.message)
-      .filter((m) => (after ? m.id > after : true));
+    const messages = messagesAfter(entries.map((e) => e.message), after);
     return reply.send({ messages });
   });
 

@@ -40,9 +40,7 @@ export function isSecret(rel: string): boolean {
 /** Always-excluded paths in EVERY mode (git or non-git). */
 export function isExcluded(rel: string): boolean {
   const parts = rel.replace(/\\/g, "/").split("/").filter(Boolean);
-  if (parts.includes(".git") || parts.includes("node_modules")) return true;
-  const norm = parts.join("/");
-  return norm === "mobile-bridge/.runtime" || norm.startsWith("mobile-bridge/.runtime/");
+  return parts.includes(".git") || parts.includes("node_modules") || parts.includes(".tether");
 }
 
 export function normalizeRel(rel: string | undefined | null): string {

@@ -11,7 +11,7 @@ export interface RuntimePaths {
 }
 
 export function resolvePaths(repoRoot: string): RuntimePaths {
-  const runtimeRoot = path.join(repoRoot, "mobile-bridge", ".runtime");
+  const runtimeRoot = path.join(repoRoot, ".tether");
   return {
     repoRoot,
     runtimeRoot,

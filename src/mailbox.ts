@@ -54,3 +54,14 @@ export async function markProcessed(paths: RuntimePaths, file: string): Promise<
   const base = path.basename(file);
   await fs.rename(file, path.join(paths.processed, base));
 }
+
+/**
+ * Pure selector: given a list of messages and an optional cursor id, return only
+ * messages whose id sorts strictly after the cursor. Mirrors the GET
+ * /mailbox/inbox?after=<id> filtering so the waiter loop can be unit-tested
+ * without real polling. Message ids are lexicographically ordered (timestamp
+ * prefix), so string comparison is a stable cursor.
+ */
+export function messagesAfter(messages: Message[], after?: string): Message[] {
+  return after ? messages.filter((m) => m.id > after) : messages.slice();
+}
